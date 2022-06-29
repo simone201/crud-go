@@ -1,9 +1,6 @@
 package db
 
-import (
-	"database/sql"
-	_ "github.com/mattn/go-sqlite3"
-)
+import "database/sql"
 
 type Database interface {
 	InitDB() *sql.DB
