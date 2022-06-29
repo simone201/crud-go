@@ -7,11 +7,11 @@ import (
 )
 
 type Person struct {
-	Id        int
-	Name      string
-	Birth     time.Time
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	Id        int       `json:"id"`
+	Name      string    `json:"name"`
+	Birth     time.Time `json:"birth"`
+	CreatedAt time.Time `json:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt"`
 }
 
 func (p Person) String() string {
