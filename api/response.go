@@ -13,7 +13,7 @@ func (ir *InvalidRequestResponse) Render(w http.ResponseWriter, r *http.Request)
 }
 
 type GenericErrorResponse struct {
-	Error string
+	Error string `json:"error"`
 }
 
 func (ge *GenericErrorResponse) Render(w http.ResponseWriter, r *http.Request) error {
@@ -21,8 +21,8 @@ func (ge *GenericErrorResponse) Render(w http.ResponseWriter, r *http.Request) e
 }
 
 type ResourceNotFoundResponse struct {
-	Name string
-	Id   any
+	Name string `json:"name"`
+	Id   any    `json:"id"`
 }
 
 func (rnf *ResourceNotFoundResponse) Render(w http.ResponseWriter, r *http.Request) error {
@@ -30,7 +30,7 @@ func (rnf *ResourceNotFoundResponse) Render(w http.ResponseWriter, r *http.Reque
 }
 
 type AddPersonResponse struct {
-	Id int64
+	Id int64 `json:"id"`
 }
 
 func (ap *AddPersonResponse) Render(w http.ResponseWriter, r *http.Request) error {
