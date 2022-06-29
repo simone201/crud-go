@@ -22,7 +22,11 @@ func root(w http.ResponseWriter, r *http.Request) {
 }
 
 func health(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
+	if db.Instance == nil || db.Instance.GetDB() == nil {
+		w.WriteHeader(http.StatusServiceUnavailable)
+	} else {
+		w.WriteHeader(http.StatusOK)
+	}
 }
 
 func main() {
@@ -49,6 +53,8 @@ func main() {
 		outPort, err := strconv.Atoi(envPort)
 		if err != nil {
 			log.Fatal(err)
+		} else if outPort < 1025 || outPort > 65535 {
+			log.Fatal("port should be between 1025 and 65535")
 		} else {
 			port = outPort
 		}
