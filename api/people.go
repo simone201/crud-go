@@ -3,6 +3,7 @@ package api
 import (
 	"HTTPChiSqlite/db"
 	"HTTPChiSqlite/model"
+	"database/sql"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/render"
 	"log"
@@ -110,9 +111,14 @@ func updatePerson(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Print(err)
 
+		if err == sql.ErrNoRows {
+			resourceNotFound(w, r, peopleResourceName, personId)
+			return
+		}
+
 		switch v := err.(type) {
 		case db.NoRowsAffectedError:
-			resourceNotFound(w, r, peopleResourceName, person.Id)
+			resourceNotFound(w, r, peopleResourceName, personId)
 			return
 		case db.ParamsNotValidError:
 			badRequest(w, r, v)
